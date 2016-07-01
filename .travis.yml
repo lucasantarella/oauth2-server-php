@@ -25,7 +25,7 @@ services:
 - memcached
 before_install:
   - composer install --prefer-source --no-interaction
-  - vendor/bin/install-phalcon.sh 2.1.x
+  - vendor/bin/install-phalcon.sh
   - phpenv config-rm xdebug.ini || return 0
 install:
 - composer install --no-interaction
