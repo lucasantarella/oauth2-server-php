@@ -26,7 +26,7 @@ services:
 before_install:
   - sudo apt-get install php5-dev libpcre3-dev gcc make php5-mysql
   - composer install --prefer-source --no-interaction
-  - vendor/bin/install-phalcon.sh
+  - vendor/bin/install-phalcon.sh 2.0.x
   - phpenv config-rm xdebug.ini || return 0
 install:
 - composer install --no-interaction
