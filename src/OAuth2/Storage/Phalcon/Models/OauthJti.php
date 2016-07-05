@@ -44,7 +44,7 @@ class OauthJti extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return $this->getDI()->get(Phalcon::KEY_PHALCON_CONFIG_ARRAY)['oauth_jti'];
+        return $this->getDI()->get(Phalcon::KEY_PHALCON_CONFIG_ARRAY)->getJtiTable();
     }
 
     /**

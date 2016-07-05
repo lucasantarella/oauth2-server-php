@@ -52,7 +52,7 @@ class OauthJwt extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSource("'" . $this->getDI()->get(Phalcon::KEY_PHALCON_CONFIG_ARRAY)['oauth_jwt'] . "'");
+        $this->setSource("'" . $this->getDI()->get(Phalcon::KEY_PHALCON_CONFIG_ARRAY)->getJwtTable() . "'");
         $this->belongsTo('client_id', 'OAuth2\Storage\Phalcon\Models\OauthClients', 'client_id', array("alias" => "Client"));
     }
 
@@ -63,7 +63,7 @@ class OauthJwt extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return $this->getDI()->get(Phalcon::KEY_PHALCON_CONFIG_ARRAY)['oauth_jwt'];
+        return $this->getDI()->get(Phalcon::KEY_PHALCON_CONFIG_ARRAY)->getJwtTable();
     }
 
     public function getClient($parameters = null)
