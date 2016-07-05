@@ -48,7 +48,7 @@ class Phalcon implements
         if (!isset($di['db']))
             throw new \InvalidArgumentException('Dependency injector must contain a valid database connection');
 
-        $this->config = new PhalconConf(array_merge(array(
+        $phalconConf = new PhalconConf(array_merge(array(
             'client_table' => 'oauth_clients',
             'access_token_table' => 'oauth_access_tokens',
             'refresh_token_table' => 'oauth_refresh_tokens',
@@ -60,15 +60,14 @@ class Phalcon implements
             'public_key_table' => 'oauth_public_keys',
         ), $config));
 
-        $di->set(self::KEY_PHALCON_CONFIG_ARRAY, function () use ($config) {
-            return $config;
-        });
+        $di->set(self::KEY_PHALCON_CONFIG_ARRAY, $phalconConf);
         $manager = $di->get('modelsManager');
         $manager->setDi($di);
         $di->set(
             'modelsManager', $manager
         );
 
+        $this->config = $phalconConf;
         $this->di = $di;
     }
 
