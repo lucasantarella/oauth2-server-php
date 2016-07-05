@@ -78,7 +78,7 @@ class OauthUsers extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->keepSnapshots(true);
-        $this->setSource("'".$this->getDI()->getShared(Phalcon::KEY_PHALCON_CONFIG_ARRAY)['user_table']."'");
+        $this->setSource("'".$this->getDI()->get(Phalcon::KEY_PHALCON_CONFIG_ARRAY)['user_table']."'");
         $this->hasMany('username', 'OAuth2\Storage\Phalcon\Models\OauthAccessTokens', 'user_id', array("alias" => "AccessTokens"));
         $this->hasMany('username', 'OAuth2\Storage\Phalcon\Models\OauthRefreshTokens', 'user_id', array("alias" => "RefreshTokens"));
     }
@@ -113,7 +113,7 @@ class OauthUsers extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return $this->getDI()->getShared(Phalcon::KEY_PHALCON_CONFIG_ARRAY)['user_table'];
+        return $this->getDI()->get(Phalcon::KEY_PHALCON_CONFIG_ARRAY)['user_table'];
     }
 
     /**
