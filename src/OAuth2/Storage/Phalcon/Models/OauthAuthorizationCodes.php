@@ -56,7 +56,7 @@ class OauthAuthorizationCodes extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return $this->getDI()->getRaw(Phalcon::KEY_PHALCON_CONFIG_ARRAY)['code_table'];
+        return $this->getDI()->getShared(Phalcon::KEY_PHALCON_CONFIG_ARRAY)['code_table'];
     }
 
     /**

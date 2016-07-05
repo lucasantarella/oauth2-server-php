@@ -60,7 +60,7 @@ class Phalcon implements
             'public_key_table' => 'oauth_public_keys',
         ), $config);
 
-        $di->setRaw(self::KEY_PHALCON_CONFIG_ARRAY, $config);
+        $di->setShared(self::KEY_PHALCON_CONFIG_ARRAY, $config);
         $di->set(
             'modelsManager',
             function () use ($di) {

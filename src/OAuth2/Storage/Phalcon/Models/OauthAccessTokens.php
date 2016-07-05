@@ -63,7 +63,7 @@ class OauthAccessTokens extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSource("'".$this->getDI()->getRaw(Phalcon::KEY_PHALCON_CONFIG_ARRAY)['access_token_table']."'");
+        $this->setSource("'".$this->getDI()->getShared(Phalcon::KEY_PHALCON_CONFIG_ARRAY)['access_token_table']."'");
         $this->belongsTo('user_id', 'OAuth2\Storage\Phalcon\Models\OauthUsers', 'username', array("alias" => "User"));
         $this->belongsTo('client_id', 'OAuth2\Storage\Phalcon\Models\OauthClients', 'client_id', array("alias" => "Client"));
     }
@@ -75,7 +75,7 @@ class OauthAccessTokens extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return $this->getDI()->getRaw(Phalcon::KEY_PHALCON_CONFIG_ARRAY)['access_token_table'];
+        return $this->getDI()->getShared(Phalcon::KEY_PHALCON_CONFIG_ARRAY)['access_token_table'];
     }
 
     /**
