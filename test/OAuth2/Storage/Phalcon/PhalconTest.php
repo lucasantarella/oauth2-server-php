@@ -12,9 +12,7 @@ namespace OAuth2\Storage\Phalcon;
 use OAuth2\Storage\BaseTest;
 use Phalcon\Db\Adapter\Pdo\Mysql;
 use Phalcon\Di;
-use Phalcon\Di\FactoryDefault;
 use Phalcon\Escaper;
-use Phalcon\Mvc\Micro;
 use Phalcon\Mvc\Model\Manager;
 use Phalcon\Mvc\Model\MetaData\Memory;
 use Phalcon\Mvc\Url;
@@ -30,9 +28,9 @@ class PhalconTest extends BaseTest
         $this->checkExtension('phalcon');
         // Reset the DI container
         Di::reset();
-        // Instantiate a new DI container
+
+        // Instantiate a new DI container (this would automatically be created in a normal Phalcon install)
         $di = new Di();
-        // Set the URL
         $di->set(
             'url',
             function () {

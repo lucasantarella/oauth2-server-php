@@ -45,7 +45,7 @@ class Phalcon implements
      */
     public function __construct($di, $config = array())
     {
-        if(!isset($di['db']))
+        if (!isset($di['db']))
             throw new \InvalidArgumentException('Dependency injector must contain a valid database connection');
 
         $this->config = array_merge(array(
@@ -61,13 +61,10 @@ class Phalcon implements
         ), $config);
 
         $di->setShared(self::KEY_PHALCON_CONFIG_ARRAY, $config);
+        $manager = $di->get('modelsManager');
+        $manager->setDi($di);
         $di->set(
-            'modelsManager',
-            function () use ($di) {
-                $manager = $di->get('modelsManager');
-                $manager->setDI($di);
-                return $manager;
-            }
+            'modelsManager', $manager
         );
 
         $this->di = $di;
