@@ -1,5 +1,5 @@
 language: php
-sudo: true
+sudo: false
 cache:
   directories:
     - $HOME/.composer/cache
@@ -22,7 +22,6 @@ services:
 - mysql
 - memcached
 before_install:
-  - sudo apt-get install php5-dev libpcre3-dev gcc make php5-mysql
   - composer install --prefer-source --no-interaction
   - vendor/bin/install-phalcon.sh 2.0.x
   - phpenv config-rm xdebug.ini || return 0
