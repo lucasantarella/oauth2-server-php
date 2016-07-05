@@ -33,7 +33,9 @@ class Phalcon implements
     UserClaimsInterface,
     OpenIDAuthorizationCodeInterface
 {
+    const KEY_PHALCON_CONFIG_ARRAY = 'oauth2_storage_phalcon_config';
     protected $db;
+    protected $di;
     protected $config;
 
     /**
@@ -46,7 +48,6 @@ class Phalcon implements
         if(!isset($di['db']))
             throw new \InvalidArgumentException('Dependency injector must contain a valid database connection');
 
-        $this->di = $di;
         $this->config = array_merge(array(
             'client_table' => 'oauth_clients',
             'access_token_table' => 'oauth_access_tokens',
@@ -58,6 +59,18 @@ class Phalcon implements
             'scope_table' => 'oauth_scopes',
             'public_key_table' => 'oauth_public_keys',
         ), $config);
+
+        $di->setRaw(self::KEY_PHALCON_CONFIG_ARRAY, $config);
+        $di->set(
+            'modelsManager',
+            function () use ($di) {
+                $manager = $di->get('modelsManager');
+                $manager->setDI($di);
+                return $manager;
+            }
+        );
+
+        $this->di = $di;
     }
 
     /* OAuth2\Storage\ClientCredentialsInterface */

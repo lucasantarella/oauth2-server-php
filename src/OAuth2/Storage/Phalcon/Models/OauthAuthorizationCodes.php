@@ -2,6 +2,8 @@
 
 namespace OAuth2\Storage\Phalcon\Models;
 
+use OAuth2\Storage\Phalcon\Phalcon;
+
 class OauthAuthorizationCodes extends \Phalcon\Mvc\Model
 {
 
@@ -54,7 +56,7 @@ class OauthAuthorizationCodes extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'oauth_authorization_codes';
+        return $this->getDI()->getRaw(Phalcon::KEY_PHALCON_CONFIG_ARRAY)['code_table'];
     }
 
     /**

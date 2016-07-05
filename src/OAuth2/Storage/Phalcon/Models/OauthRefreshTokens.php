@@ -2,6 +2,8 @@
 
 namespace OAuth2\Storage\Phalcon\Models;
 
+use OAuth2\Storage\Phalcon\Phalcon;
+
 class OauthRefreshTokens extends \Phalcon\Mvc\Model
 {
     /**
@@ -61,7 +63,7 @@ class OauthRefreshTokens extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSource("'oauth_refresh_tokens'");
+        $this->setSource("'" . $this->getDI()->getRaw(Phalcon::KEY_PHALCON_CONFIG_ARRAY)['refresh_token_table'] . "'");
         $this->belongsTo('user_id', 'OAuth2\Storage\Phalcon\Models\OauthUsers', 'username');
         $this->belongsTo('client_id', 'OAuth2\Storage\Phalcon\Models\OauthClients', 'client_id');
     }
@@ -73,7 +75,6 @@ class OauthRefreshTokens extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'oauth_refresh_tokens';
+        return $this->getDI()->getRaw(Phalcon::KEY_PHALCON_CONFIG_ARRAY)['refresh_token_table'];
     }
-
 }
