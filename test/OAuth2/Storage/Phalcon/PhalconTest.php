@@ -20,13 +20,29 @@ use Phalcon\Mvc\Url;
 class PhalconTest extends BaseTest
 {
     private $di;
+
+    public function testPhalconDataStorage()
+    {
+        $this->setUp();
+
+        if (!extension_loaded('phalcon')) {
+            $this->markTestSkipped("Phalcon not loaded! Skipping Phalcon tests...");
+            return;
+        }
+
+        $storage = new Phalcon($this->di);
+        $this->assertNotNull($storage->getClientDetails('oauth_test_client'));
+    }
+
     /**
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    public function setUp()
     {
-        if (!extension_loaded('phalcon'))
+        if (!extension_loaded('phalcon')) {
             $this->markTestSkipped("Phalcon not loaded! Skipping Phalcon tests...");
+            return;
+        }
 
         // Reset the DI container
         Di::reset();
@@ -49,7 +65,7 @@ class PhalconTest extends BaseTest
             }
         );
 
-        $di->set('db', function() {
+        $di->set('db', function () {
             return new Mysql(array(
                 "host" => "localhost",
                 "username" => "root",
@@ -73,12 +89,6 @@ class PhalconTest extends BaseTest
         );
 
         $this->di = $di;
-    }
-    
-    public function testPhalconDataStorage(){
-        $this->setUp();
-        $storage = new Phalcon($this->di);
-        $this->assertNotNull($storage->getClientDetails('oauth_test_client'));
     }
 
 }
