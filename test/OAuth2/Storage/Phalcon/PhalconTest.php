@@ -39,6 +39,7 @@ class PhalconTest extends BaseTest
      */
     public function setUp()
     {
+        echo "Test";
         if (!extension_loaded('phalcon')) {
             $this->markTestSkipped("Phalcon not loaded! Skipping Phalcon tests...");
             return;
