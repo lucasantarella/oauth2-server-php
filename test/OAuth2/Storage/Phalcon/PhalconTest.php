@@ -25,7 +25,9 @@ class PhalconTest extends BaseTest
      */
     protected function setUp()
     {
-        $this->checkExtension('phalcon');
+        if (!extension_loaded('phalcon'))
+            $this->markTestSkipped("Phalcon not loaded! Skipping Phalcon tests...");
+
         // Reset the DI container
         Di::reset();
 
@@ -72,24 +74,7 @@ class PhalconTest extends BaseTest
 
         $this->di = $di;
     }
-
-    public function checkExtension($extension)
-    {
-        $message = function ($ext) {
-            sprintf('Warning: %s extension is not loaded', $ext);
-        };
-        if (is_array($extension)) {
-            foreach ($extension as $ext) {
-                if (!extension_loaded($ext)) {
-                    $this->markTestSkipped($message($ext));
-                    break;
-                }
-            }
-        } elseif (!extension_loaded($extension)) {
-            $this->markTestSkipped($message($extension));
-        }
-    }
-
+    
     public function testPhalconDataStorage(){
         $this->setUp();
         $storage = new Phalcon($this->di);
