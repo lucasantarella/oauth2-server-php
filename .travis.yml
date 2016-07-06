@@ -29,7 +29,6 @@ install:
   - composer install --prefer-source --no-interaction
   - if [[ ${TRAVIS_PHP_VERSION:0:1} == "5" ]]; then vendor/bin/install-phalcon.sh 2.0.x; fi;
 before_script:
-- php -m
 - psql -c 'create database oauth2_server_php;' -U postgres
 after_script:
 - php test/cleanup.php
