@@ -26,6 +26,7 @@ class PhalconTest extends BaseTest
         $this->setUp();
 
         if (!extension_loaded('phalcon')) {
+            echo "Skipped!";
             $this->markTestSkipped("Phalcon not loaded! Skipping Phalcon tests...");
             return;
         }
@@ -39,10 +40,9 @@ class PhalconTest extends BaseTest
      */
     public function setUp()
     {
-        echo "Test";
         if (!extension_loaded('phalcon')) {
             $this->markTestSkipped("Phalcon not loaded! Skipping Phalcon tests...");
-            return;
+            return false;
         }
 
         // Reset the DI container
