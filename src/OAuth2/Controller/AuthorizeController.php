@@ -126,6 +126,11 @@ class AuthorizeController implements AuthorizeControllerInterface
         return $params;
     }
 
+    /**
+     * @param RequestInterface $request
+     * @param ResponseInterface $response
+     * @return bool
+     */
     public function validateAuthorizeRequest(RequestInterface $request, ResponseInterface $response)
     {
         // Make sure a valid client id was supplied (we can not redirect because we were unable to verify the URI)
@@ -333,7 +338,7 @@ class AuthorizeController implements AuthorizeControllerInterface
             return false; // if either one is missing, assume INVALID
         }
 
-        $registered_uris = explode(' ', $registeredUriString);
+        $registered_uris = preg_split('/\s+/', $registeredUriString);
         foreach ($registered_uris as $registered_uri) {
             if ($this->config['require_exact_redirect_uri']) {
                 // the input uri is validated against the registered uri using exact match
